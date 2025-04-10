@@ -34,7 +34,6 @@ const io = new Server(server, {
 
 const users = new Map(); // 存储在线用户
 const registeredUsers = new Map(); // 存储注册用户
-<<<<<<< HEAD
 const privateMessages = new Map(); // 临时存储私聊记录
 
 async function storePrivateMessage(msg) {
@@ -49,8 +48,6 @@ async function getPrivateHistory(user1, user2) {
   const key = [user1, user2].sort().join("_");
   return privateMessages.get(key) || [];
 }
-=======
->>>>>>> origin/main
 
 // 注册接口
 app.post("/api/register", async (req, res) => {
@@ -176,12 +173,7 @@ io.on("connection", (socket) => {
       senderId: socket.id, // 发送者的 socket.id
       ...(typeof msg === "string"
         ? { type: "text", content: msg } // 处理纯文本消息
-<<<<<<< HEAD
         : msg), // 处理图片等对象消息
-=======
-        : msg // 处理图片等对象消息
-      ),
->>>>>>> origin/main
     };
 
     // 验证消息类型（确保是 text 或 image）
@@ -221,7 +213,6 @@ io.on("connection", (socket) => {
       user.tabs.add(tabId);
     }
   });
-<<<<<<< HEAD
 
   socket.on("private message", (msg) => {
     const sender = users.get(socket.decoded.username);
@@ -268,8 +259,6 @@ io.on("connection", (socket) => {
     const history = privateMessages.get(storageKey) || [];
     socket.emit("private_history", history);
   });
-=======
->>>>>>> origin/main
 });
 
 server.listen(3000, () => {
