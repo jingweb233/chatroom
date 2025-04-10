@@ -1,5 +1,6 @@
 <template>
   <div class="chat-container">
+<<<<<<< HEAD
     <!-- 新增私聊对话框 -->
     <el-dialog
       v-model="privateChatVisible"
@@ -87,6 +88,8 @@
       </div>
     </el-dialog>
 
+=======
+>>>>>>> origin/main
     <!-- 侧边栏用户列表 -->
     <el-card class="user-list-card">
       <template #header>
@@ -96,6 +99,7 @@
         </div>
       </template>
       <el-scrollbar height="calc(100vh - 180px)">
+<<<<<<< HEAD
         <div
           v-for="user in onlineUsers"
           :key="user.id"
@@ -105,13 +109,19 @@
           "
           :class="{ 'self-user': user.username === currentUser?.username }"
         >
+=======
+        <div v-for="user in onlineUsers" :key="user.id" class="user-item">
+>>>>>>> origin/main
           <el-icon>
             <User />
           </el-icon>
           <span class="username">{{ user.username }}</span>
+<<<<<<< HEAD
           <span v-if="user.username === currentUser?.username" class="self-tag"
             >(我)</span
           >
+=======
+>>>>>>> origin/main
         </div>
       </el-scrollbar>
     </el-card>
@@ -163,9 +173,13 @@
                     >
                       <template #error>
                         <div class="image-error">
+<<<<<<< HEAD
                           <el-icon>
                             <PictureFilled />
                           </el-icon>
+=======
+                          <el-icon><PictureFilled /></el-icon>
+>>>>>>> origin/main
                           <span>图片加载失败</span>
                         </div>
                       </template>
@@ -249,12 +263,16 @@ const openDB = () => {
     };
     request.onupgradeneeded = (event) => {
       const db = event.target.result;
+<<<<<<< HEAD
       if (!db.objectStoreNames.contains("PrivateMessages")) {
         db.createObjectStore("PrivateMessages", {
           keyPath: "id",
           autoIncrement: true,
         });
       }
+=======
+      db.createObjectStore(STORE_NAME, { keyPath: "id", autoIncrement: true });
+>>>>>>> origin/main
     };
   });
 };
@@ -281,14 +299,21 @@ const loadMessages = () => {
 
 const router = useRouter();
 const socket = getSocket();
+<<<<<<< HEAD
 const avatarAI =
   "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png";
+=======
+const avatarAI = "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png";
+>>>>>>> origin/main
 const messages = ref([]);
 const onlineUsers = ref([]);
 const newMessage = ref("");
 const messagesScroll = ref(null);
 const currentUserId = ref(null);
+<<<<<<< HEAD
 const currentUser = ref(null);
+=======
+>>>>>>> origin/main
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 
 const formatTime = (date) => {
@@ -355,6 +380,7 @@ const scrollToBottom = () => {
   });
 };
 
+<<<<<<< HEAD
 const privateChatVisible = ref(false);
 const currentPrivateUser = ref(null);
 const newPrivateMessage = ref("");
@@ -430,6 +456,11 @@ const handlePrivateFileSelect = (file) => {
 onMounted(async () => {
   await openDB();
 
+=======
+onMounted(async () => {
+  await openDB();
+  
+>>>>>>> origin/main
   // 加载本地存储的消息
   const storedMessages = await loadMessages();
   messages.value = storedMessages.length
@@ -473,7 +504,10 @@ onMounted(async () => {
 
   socket.on("connect", () => {
     socket.emit("request_userlist");
+<<<<<<< HEAD
     currentUser.value = { username: socket.decoded?.username }; // 从socket获取当前用户
+=======
+>>>>>>> origin/main
   });
 
   socket.on("connect_error", (err) => {
@@ -489,10 +523,14 @@ onMounted(async () => {
   });
 
   socket.on("chat message", async (msg) => {
+<<<<<<< HEAD
     const messageWithSelf = {
       ...msg,
       isMe: msg.senderId === currentUserId.value,
     };
+=======
+    const messageWithSelf = { ...msg, isMe: msg.senderId === currentUserId.value };
+>>>>>>> origin/main
     messages.value.push(messageWithSelf);
     await saveMessage(messageWithSelf);
     scrollToBottom();
@@ -526,6 +564,7 @@ onMounted(async () => {
     scrollToBottom();
   });
 
+<<<<<<< HEAD
   // 监听私聊消息
   socket.on("private message", (msg) => {
     if (
@@ -551,6 +590,8 @@ onMounted(async () => {
     scrollPrivateToBottom();
   });
 
+=======
+>>>>>>> origin/main
   scrollToBottom();
 });
 
@@ -675,6 +716,7 @@ onUnmounted(() => {
   max-width: 300px;
   max-height: 300px;
 }
+<<<<<<< HEAD
 
 .private-chat-container {
   padding: 10px;
@@ -712,4 +754,6 @@ onUnmounted(() => {
 .user-item:hover:not(.self-user) {
   background-color: #f5f7fa;
 }
+=======
+>>>>>>> origin/main
 </style>
